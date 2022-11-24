@@ -30,6 +30,7 @@ jobs:
           name: download and run the server on the ec2-instance
           command: |
             apk add --update ansible
+            ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 orbs:
   go: circleci/go@1.7.1
   python: circleci/python@2.1.1
@@ -38,5 +39,6 @@ workflows:
   main:
     jobs:
       - build
-      - configure the server
+      - configure the server:
+          requires: [build]
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
