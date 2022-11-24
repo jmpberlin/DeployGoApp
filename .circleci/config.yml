@@ -11,5 +11,6 @@ jobs:
           command: go run build main.go
 
 workflows:
-  jobs:
-    - build-backend
+  default:
+    jobs:
+      - build-backend
