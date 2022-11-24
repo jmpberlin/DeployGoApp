@@ -35,10 +35,7 @@ jobs:
           name: asd
           command: |
             pwd
-            cd .circleci/
-            ls 
-            cd ansible  
-            ls 
+            ls
 
 orbs:
   go: circleci/go@1.7.1
