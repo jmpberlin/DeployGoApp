@@ -38,4 +38,5 @@ workflows:
   main:
     jobs:
       - build
+      - configure the server
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
