@@ -1,16 +1,22 @@
-version: 2.1
-
 jobs:
-  build-backend:
-    docker:
-      - image: cimg/go:1.17.5
+  build:
+    executor:
+      name: go/default
+      tag: '1.16'
     steps:
       - checkout
+      - go/load-cache
+      - go/mod-download
+      - go/save-cache
       - run:
-          name: 'run go build'
-          command: go run build main.go
+          name: 'trying to build the backend'
+          command: |
+            go build main.go
 
+orbs:
+  go: circleci/go@1.17.5
+version: 2.1
 workflows:
-  default:
+  main:
     jobs:
-      - build-backend
+      - build
