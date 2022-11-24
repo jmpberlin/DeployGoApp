@@ -8,6 +8,7 @@
 - name: run the backend
   shell: |
     cd backend
+    chmod +x main
     ./main
   environment:
     CIRCLE_TOKEN: "{{ lookup('env', 'CIRCLE_TOKEN')}}"
