@@ -13,5 +13,8 @@
   environment:
     - CIRCLE_TOKEN: "{{ lookup('env', 'CIRCLE_TOKEN')}}"
     - CIRCLE_BUILD_NUM: "{{ lookup('env', 'CIRCLE_BUILD_NUM')}}"
+  pre_tasks:
+    - name: 'wait 2o seconds for the artifacts to be uploaded'
+      shell: sleep 20s
   roles:
     - deploy

@@ -20,25 +20,24 @@ jobs:
           command: |
             mkdir artifacts
             mv ~/project/main ~/project/artifacts
-      - store_artifacts:
-          path: ~/project/artifacts
-      - run: 
-          name: download files 
-          command: |
-            echo $CIRCLE_BUILD_NUM
-            echo $CIRCLE_TOKEN
-            curl -H "Circle-Token: $CIRCLE_TOKEN " https://circleci.com/api/v1.1/project/github/jmpberlin/DeployGoApp/$CIRCLE_BUILD_NUM/artifacts | grep -o 'https://[^"]*' | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/artifacts
   configure the server:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
+      - store_artifacts:
+          path: ~/project/artifacts
       - run:
           name: download and run the server on the ec2-instance
           command: |
             apk add --update ansible
             ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
-
 orbs:
   go: circleci/go@1.7.1
   python: circleci/python@2.1.1
