@@ -1,6 +1,8 @@
 ---
 - name: download the zipped artifact
   shell: |
+    echo $CIRCLE_TOKEN 
+    echo $CIRCLE_BUILD_NUM
     mkdir backend
     cd backend
     curl -H "Circle-Token: $CIRCLE_TOKEN" https://circleci.com/api/v1.1/project/github/jmpberlin/DeployGoApp/$CIRCLE_BUILD_NUM/artifacts | grep -o 'https://[^"]*' | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
