@@ -14,11 +14,28 @@ jobs:
             go build main.go
             ls -la 
             pwd
-            ./main 
+            ./main
+      - run:
+          name: move binary to artifact
+          command: |
+            mkdir artifacts
+            mv ~/project/main ~/project/artifacts
+      - store_artifacts:
+          path: ~/project/artifacts
+  configure the server:
+    executor:
+      name: python
+    steps:
+      - run:
+          name: download and run the server on the ec2-instance
+          command: |
+            apk add --update ansible
 orbs:
   go: circleci/go@1.7.1
+  python: circleci/python@2.1.1
 version: 2.1
 workflows:
   main:
     jobs:
       - build
+#             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
