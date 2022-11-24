@@ -24,7 +24,7 @@ jobs:
           path: ~/project/artifacts
   configure the server:
     executor:
-      name: python
+      name: python/default
     steps:
       - run:
           name: download and run the server on the ec2-instance
