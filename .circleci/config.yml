@@ -26,16 +26,12 @@ jobs:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      # - run:
-      #     name: download and run the server on the ec2-instance
-      #     command: |
-      #       apk add --update ansible
-      #       ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
+      - checkout
       - run:
-          name: asd
+          name: download and run the server on the ec2-instance
           command: |
-            pwd
-            ls
+            apk add --update ansible
+            ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 
 orbs:
   go: circleci/go@1.7.1
