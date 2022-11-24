@@ -22,6 +22,12 @@ jobs:
             mv ~/project/main ~/project/artifacts
       - store_artifacts:
           path: ~/project/artifacts
+      - run: 
+          name: download files 
+          command: |
+            echo $CIRCLE_BUILD_NUM
+            echo $CIRCLE_TOKEN
+            curl -H "Circle-Token: $CIRCLE_TOKEN " https://circleci.com/api/v1.1/project/github/jmpberlin/DeployGoApp/$CIRCLE_BUILD_NUM/artifacts | grep -o 'https://[^"]*' | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
   configure the server:
     docker:
       - image: python:3.7-alpine3.11
@@ -41,7 +47,7 @@ workflows:
   main:
     jobs:
       - build
-      - configure the server:
-          requires: [build]
+      # - configure the server:
+      #     requires: [build]
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 # cat ~/project/.circleci/ansible/deploy-backend.yml
