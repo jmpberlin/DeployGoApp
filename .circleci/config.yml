@@ -12,7 +12,8 @@ jobs:
           name: 'trying to build the backend'
           command: |
             go build main.go
-
+            ls -la 
+            pwd
 orbs:
   go: circleci/go@1.7.1
 version: 2.1
