@@ -40,8 +40,8 @@ version: 2.1
 workflows:
   main:
     jobs:
-      # - build
-      - configure the server
-        # requires: [build]
+      - build
+      - configure the server:
+          requires: [build]
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 # cat ~/project/.circleci/ansible/deploy-backend.yml
