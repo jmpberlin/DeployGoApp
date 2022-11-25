@@ -42,6 +42,17 @@ jobs:
             cd .. 
             apk add --update ansible
             ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
+  migrate:
+    executor:
+      name: go/default
+      tag: '1.16'
+    steps:
+      - checkout
+      - run:
+          name: 'check if golang migrate works'
+          command: |
+            migrate -version
+
 orbs:
   go: circleci/go@1.7.1
   python: circleci/python@2.1.1
@@ -49,8 +60,9 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - build
-      - configure the server:
-          requires: [build]
+      # - build
+      # - configure the server:
+      #     requires: [build]
+      - migrate
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 # cat ~/project/.circleci/ansible/deploy-backend.yml
