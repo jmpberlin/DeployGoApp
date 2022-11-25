@@ -51,9 +51,9 @@ jobs:
       - run:
           name: 'check if golang migrate works'
           command: |
-            apt install golang-migrate
-            apt install homebrew
-            brew install golang-migrate
+            sudo apt install golang-migrate
+            sudo apt install homebrew
+            sudo brew install golang-migrate
             migrate -version
 
 orbs:
