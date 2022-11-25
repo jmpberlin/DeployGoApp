@@ -51,8 +51,10 @@ jobs:
       - run:
           name: 'check if golang migrate works'
           command: |
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             brew install golang-migrate
+            curl -s https://packagecloud.io/install/repositories/golang-migrate/migrate/script.deb.sh | sudo bash
+            sudo apt-get update
+            sudo apt-get install migrate
             migrate -version
 
 orbs:
@@ -68,3 +70,4 @@ workflows:
       - migrate
 #             # ansible-playbook -vv -i ~/project/.circleci/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 # cat ~/project/.circleci/ansible/deploy-backend.yml
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
